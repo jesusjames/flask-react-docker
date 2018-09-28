@@ -1,9 +1,9 @@
 {
-  "name": "flask-to-do",
+  "name": "flask-react",
   "version": "1.0.0",
   "main": "index.py",
-  "repository": "git@github.com:rikenmehta03/flask-to-do.git",
-  "author": "Riken Mehta <riken.mehta03@gmail.com>",
+  "repository": "https://github.com/jesusjames/flask-react-docker.git",
+  "author": "Jesús Santiago <jesusjames9373@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "webpack -p",
