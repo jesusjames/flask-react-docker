@@ -10,7 +10,9 @@ services:
      - ENV=development
      - PORT=4000
      - DB=mongodb://mongodb:27017/todoDev
+     #- DB=mongodb://ucdw:BVyOtZypTpRhISVeNrtYW3Mt5FINnfjHvyjgZQdybWU6TlruVe2amXE80TKkTdCyOX7L0Ens91juATTQ1Ygpzg==@ucdw.documents.azure.com:10255/test?ssl=true&replicaSet=globaldb
      - SECRET='to-do-app-secret'
+
   mongodb:
     image: mongo:latest
     container_name: "mongodb"
@@ -22,6 +24,7 @@ services:
     ports:
         - 27017:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet
-networks: 
+
+networks:
   default:
     name: web_dev

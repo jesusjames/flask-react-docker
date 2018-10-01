@@ -3,9 +3,9 @@ import os
 from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from bson.objectid import ObjectId
-from app import app, mongo
-from app.schemas import validate_task, validate_task_update
-import logger
+from modules.app import app, mongo
+from ..schemas import validate_task, validate_task_update
+from modules.logger import *
 
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(

@@ -10,7 +10,7 @@ from flask_bcrypt import Bcrypt
 
 
 class JSONEncoder(json.JSONEncoder):
-    ''' extend json-encoder class'''
+    """extend json-encoder class"""
 
     def default(self, o):
         if isinstance(o, ObjectId):
@@ -24,6 +24,7 @@ class JSONEncoder(json.JSONEncoder):
 
 # create the flask object
 app = Flask(__name__)
+# add mongo url to flask config, so that flask_pymongo can use it to make connection
 app.config['MONGO_URI'] = os.environ.get('DB')
 app.config['JWT_SECRET_KEY'] = os.environ.get('SECRET')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
@@ -32,4 +33,6 @@ flask_bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 app.json_encoder = JSONEncoder
 
-from app.controllers import *  # pylint: disable=W0401,C0413
+urlApi = "/api/v1"
+
+from .controllers import *  # pylint: disable=W0401,C0413

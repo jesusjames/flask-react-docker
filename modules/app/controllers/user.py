@@ -3,9 +3,9 @@ import os
 from flask import request, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, jwt_refresh_token_required, get_jwt_identity)
-from app import app, mongo, flask_bcrypt, jwt
-from app.schemas import validate_user
-import logger
+from modules.app import app, mongo, flask_bcrypt, jwt, urlApi
+from modules.app.schemas import validate_user
+from modules.logger import *
 
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(
@@ -41,7 +41,7 @@ def auth_user():
         return jsonify({'ok': False, 'message': 'Bad request parameters: {}'.format(data['message'])}), 400
 
 
-@app.route('/register', methods=['POST'])
+@app.route(urlApi + '/register', methods=['POST'])
 def register():
     ''' register user endpoint '''
     data = validate_user(request.get_json())
@@ -66,6 +66,20 @@ def refresh():
     return jsonify({'ok': True, 'data': ret}), 200
 
 
+@app.route('/user/<email>', methods=['GET'])
+@jwt_required
+def get_user(email):
+    ''' route read user '''
+    if request.method == 'GET':
+        data1 = request.get_json()
+        print("entro al metodo user GET")
+        print(data1)
+        # query = request.args
+        data = mongo.db.users.find_one({'email': email})
+        user = {'name': data['name'], 'email': data['email']}
+        return jsonify({'ok': True, 'data': user}), 200
+
+
 @app.route('/user', methods=['GET', 'DELETE', 'PATCH'])
 @jwt_required
 def user():
@@ -73,7 +87,8 @@ def user():
     if request.method == 'GET':
         query = request.args
         data = mongo.db.users.find_one(query, {"_id": 0})
-        return jsonify({'ok': True, 'data': data}), 200
+        user = {'name': data['name'], 'email': data['email']}
+        return jsonify({'ok': True, 'data': user}), 200
 
     data = request.get_json()
     if request.method == 'DELETE':

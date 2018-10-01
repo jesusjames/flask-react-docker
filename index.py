@@ -10,8 +10,8 @@ sys.path.append(os.path.join(ROOT_PATH, 'modules'))
 
 PUBLIC_PATH = os.path.join(ROOT_PATH, 'public')
 
-import logger  # noqa
-from app import app  # noqa
+from modules.logger import logger
+from modules.app import app  # noqa
 
 # Create a logger object to log the info and debug
 LOG = logger.get_root_logger(os.environ.get(

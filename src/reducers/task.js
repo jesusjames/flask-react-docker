@@ -29,7 +29,7 @@ const taskReducerDefaultState = {
             title: 'done test 1'
         }
     ]
-}
+};
 
 export default (state = taskReducerDefaultState, action) => {
 

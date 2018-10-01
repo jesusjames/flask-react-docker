@@ -3,9 +3,41 @@ import { connect } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 class State extends Component {
-    render() {
-        const { taskState, task, getListStyle, getItemStyle } = this.props;
 
+    render() {
+        const { taskState, getListStyle, getItemStyle } = this.props;
+        const task = {
+        todo: [
+            {
+                _id: 0,
+                title: 'todo test 0'
+            },
+            {
+                _id: 1,
+                title: 'todo test 1'
+            }
+        ],
+        doing: [
+            {
+                _id: 2,
+                title: 'doing test 0'
+            },
+            {
+                _id: 3,
+                title: 'doing test 1'
+            }
+        ],
+        done: [
+            {
+                _id: 4,
+                title: 'done test 0'
+            },
+            {
+                _id: 5,
+                title: 'done test 1'
+            }
+        ]
+        };
         return (
             <div>
                 <Droppable droppableId={taskState} >
@@ -13,7 +45,8 @@ class State extends Component {
                         <div
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
-                            {task[taskState].map((item, index) => (
+                            { Object.keys(task).length > 0 &&
+                                task[taskState].map((item, index) => (
                                 <Draggable
                                     key={item._id}
                                     draggableId={item._id}
