@@ -28,12 +28,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(forma: NgForm){
+  login(){
     this.loading = true;
-
-    if ( forma.invalid ) {
-      return;
-    }
 
     this._usuarioService.login(this.usuario).subscribe(
       response => {
@@ -49,9 +45,14 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.log(error.error.message);
-        this.error = 'Usuario o contraseña incorrectas';
+        this.error = error.error.message;
+        this.loading = false;
       }
     );
+  }
+
+  restartNotification(){
+    this.error = '';
   }
 
 }

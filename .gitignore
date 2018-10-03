@@ -24,6 +24,8 @@ wheels/
 .installed.cfg
 *.egg
 node_modules
+frontend/node_modules
+frontend/dist
 public/app.js
 public/vendors.js
 

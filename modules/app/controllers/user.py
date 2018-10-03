@@ -26,15 +26,15 @@ def auth_user():
     data = validate_user(request.get_json())
     if data['ok']:
         data = data['data']
-        user = mongo.db.users.find_one({'email': data['email']}, {"_id": 0})
+        user = mongo.db.users.find_one({'email': data['email']})
         LOG.debug(user)
         if user and flask_bcrypt.check_password_hash(user['password'], data['password']):
             del user['password']
             access_token = create_access_token(identity=data)
             refresh_token = create_refresh_token(identity=data)
-            user['token'] = access_token
-            user['refresh'] = refresh_token
-            return jsonify({'ok': True, 'data': user}), 200
+            # user['token'] = access_token
+            # user['refresh'] = refresh_token
+            return jsonify({'ok': True, 'data': [{'user': user, 'refresh': refresh_token, 'token': access_token}]}), 200
         else:
             return jsonify({'ok': False, 'message': 'invalid username or password'}), 401
     else:

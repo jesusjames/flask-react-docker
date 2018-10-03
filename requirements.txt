@@ -6,3 +6,4 @@ flask_pymongo==2.1.0
 Flask_JWT_Extended==3.13.1
 Flask_Bcrypt==0.7.1
 jsonschema==2.6.0
+flask-cors

@@ -63,6 +63,7 @@ export class UsuarioService {
     this.usuario = null;
     this.token = '';
 
+    localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
 
