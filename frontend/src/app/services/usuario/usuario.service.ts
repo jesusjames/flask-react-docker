@@ -27,7 +27,7 @@ export class UsuarioService {
       localStorage.removeItem('email');
     }
 
-    let urlApi =  GLOBAL.url + "auth";
+    const urlApi =  GLOBAL.url + "/auth";
     let body = {
 	    email: usuario.email,
 	    password: usuario.password
@@ -37,7 +37,7 @@ export class UsuarioService {
   }
 
   estaLogueado() {
-    return ( this.token.length > 5 ) ? true : false;
+    return (this.token.length > 30) ? true : false;
   }
 
   cargarStorage() {
@@ -68,6 +68,10 @@ export class UsuarioService {
     localStorage.removeItem('usuario');
 
     this.router.navigate(['/login']);
+  }
+
+  getToken(){
+    return this.token;
   }
 
 }

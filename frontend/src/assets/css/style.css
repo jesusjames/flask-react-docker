@@ -1,7 +1,5 @@
-a:not([href]):not([tabindex]) {
-    color: inherit;
-    text-decoration: none;
-}
+@import url(fontawesome/css/all.min.css);
+@import url(animate.css);
 
 .active {
   color: white !important;

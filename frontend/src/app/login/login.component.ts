@@ -13,25 +13,30 @@ export class LoginComponent implements OnInit {
 
   public usuario: Usuario;
   public loading = false;
+  public recuerdame: boolean = false;
   public error = '';
   public exito = '';
 
   constructor(private _usuarioService: UsuarioService,
               private _router: Router) {
     this.usuario = {
-      email: "",
+      email: '',
       name: null,
-      password: ""
+      password: ''
     }
   }
 
   ngOnInit() {
+    this.usuario.email = localStorage.getItem('email') || '';
+    if ( this.usuario.email.length > 1 ) {
+      this.recuerdame = true;
+    }
   }
 
   login(){
     this.loading = true;
 
-    this._usuarioService.login(this.usuario).subscribe(
+    this._usuarioService.login(this.usuario, this.recuerdame).subscribe(
       response => {
         this.loading = false;
         if (response) {

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from "./shared/shared.module";
 import { UsuarioService } from "./services/usuario/usuario.service";
 import { FormsModule } from "@angular/forms";
+import {LoginGuard} from "./services/guards/login.guard";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from "@angular/forms";
     FormsModule
   ],
   providers: [
-    UsuarioService
+    UsuarioService,
+    LoginGuard
   ],
   bootstrap: [AppComponent]
 })

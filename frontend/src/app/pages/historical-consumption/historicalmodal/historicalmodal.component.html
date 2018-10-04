@@ -1,0 +1,117 @@
+<ng-template #CreatedAndEdit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 *ngIf="action === 'create'" class="modal-title" id="modal-basic-title">Crear Historical consumption</h4>
+    <h4 *ngIf="action === 'edit'" class="modal-title" id="modal-basic-title">Editar Historical consumption</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form class="form-material" id="createhistoricalform" name="createhistoricalform" #createhistoricalform="ngForm" (ngSubmit)="createhistoricalform.form.valid && setValues()" novalidate>
+  <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label>*Paciente:</label>
+          <input type="text" class="form-control form-control-line" name="paciente" [(ngModel)]="createHistorical.paciente" #paciente="ngModel">
+        </div>
+        <div class="form-group col-md-6">
+          <label>*Edad:</label>
+          <input type="number" class="form-control form-control-line" name="edad" [(ngModel)]="createHistorical.edad" #edad="ngModel">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label>*Sexo:</label>
+          <select class="form-control form-control-line"
+                  name="sexo"
+                  [(ngModel)]="createHistorical.sexo"
+                  #sexo="ngModel"
+                  required>
+            <option value="">--Seleccione--</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label>*Procedimiento:</label>
+          <input type="text" class="form-control form-control-line" name="procedimiento" [(ngModel)]="createHistorical.procedimiento" #procedimiento="ngModel">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label>*Producto:</label>
+          <input type="text" class="form-control form-control-line" name="producto" [(ngModel)]="createHistorical.producto" #producto="ngModel">
+        </div>
+        <div class="form-group col-md-6">
+          <label>*Cantidad:</label>
+          <input type="number" class="form-control form-control-line" name="cantidad" [(ngModel)]="createHistorical.cantidad" #cantidad="ngModel">
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button  type="submit" class="btn btn-info" >Crear</button>
+    <button
+      type="button"
+      class="btn btn-secondary pull-left"
+      (click)="c('Close click')">Cerrar</button>
+  </div>
+  </form>
+</ng-template>
+<ng-template #View let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Detalle Historical consumption</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Paciente:</label>
+          <p>paciente</p>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Edad:</label>
+          <p>edad</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Sexo:</label>
+          <p>Sexo</p>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Procedimiento:</label>
+          <p>procedimiento</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Producto:</label>
+          <p>producto</p>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="font-weight-bold">Cantidad:</label>
+          <p>cantidad</p>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary pull-left"
+      (click)="c('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+<!--btn create historical -->
+<button *ngIf="action === 'create'" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" (click)="open(CreatedAndEdit)">
+  <i class="fa fa-plus"></i>
+  Crear historical consumption
+</button>
+<!-- btn edit historical -->
+<button *ngIf="action ==='edit'" class="btn btn-primary btn-sm" (click)="open(CreatedAndEdit)">
+  <i class="fas fa-edit"></i>
+</button>
+<!-- btn view historical-->
+<button *ngIf="action ==='view'" class="btn btn-default btn-sm" (click)="open(View)">
+  <i class="far fa-eye"></i>
+</button>
