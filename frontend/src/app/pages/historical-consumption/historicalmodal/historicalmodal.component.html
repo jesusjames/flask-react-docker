@@ -6,7 +6,8 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form class="form-material" id="createhistoricalform" name="createhistoricalform" #createhistoricalform="ngForm" (ngSubmit)="createhistoricalform.form.valid && setValues()" novalidate>
+  <form class="form-material" id="createhistoricalform" name="createhistoricalform" #createhistoricalform="ngForm"
+        (ngSubmit)="createhistoricalform.form.valid && setValues()" [ngFormOptions]="{ updateOn: 'submit'}" novalidate>
   <div class="modal-body">
       <div class="row">
         <div class="form-group col-md-6">
@@ -48,7 +49,8 @@
       </div>
   </div>
   <div class="modal-footer">
-    <button  type="submit" class="btn btn-info" >Crear</button>
+    <button *ngIf="action === 'create'" type="submit" class="btn btn-info" >Crear</button>
+    <button *ngIf="action === 'edit'" type="submit" class="btn btn-info" >Editar</button>
     <button
       type="button"
       class="btn btn-secondary pull-left"
@@ -58,7 +60,7 @@
 </ng-template>
 <ng-template #View let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Detalle Historical consumption</h4>
+    <h4 class="modal-title" id="modal-basic-title">Detalle _id: {{ historicalview._id }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -67,31 +69,31 @@
       <div class="row">
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Paciente:</label>
-          <p>paciente</p>
+          <p>{{ historicalview.paciente }}</p>
         </div>
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Edad:</label>
-          <p>edad</p>
+          <p>{{ historicalview.edad }}</p>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Sexo:</label>
-          <p>Sexo</p>
+          <p>{{ historicalview.sexo }}</p>
         </div>
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Procedimiento:</label>
-          <p>procedimiento</p>
+          <p>{{ historicalview.procedimiento }}</p>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Producto:</label>
-          <p>producto</p>
+          <p>{{ historicalview.producto }}</p>
         </div>
         <div class="form-group col-md-6">
           <label class="font-weight-bold">Cantidad:</label>
-          <p>cantidad</p>
+          <p>{{ historicalview.cantidad }}</p>
         </div>
       </div>
   </div>

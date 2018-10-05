@@ -33,7 +33,7 @@ def crear_historical():
         return jsonify({'ok': False, 'message': 'Bad request parameters: {}'.format(data['message'])}), 400
 
 
-@app.route(urlApi + '/historical_consumption', methods=['GET', 'DELETE'])
+@app.route(urlApi + '/historical_consumption', methods=['GET'])
 @jwt_required
 def get_all_data_hisotorical():
     if request.method == 'GET':
@@ -45,18 +45,6 @@ def get_all_data_hisotorical():
                            '_id': s['_id']})
         return jsonify({'code:': True, 'data': output, 'message': "Lista historical consumption ok"}), 200
 
-    data = request.get_json()
-    if request.method == 'DELETE':
-        if data.get('_id', None) is not None:
-            db_response = mongo.db.historical_consumption.delete_one({'_id': ObjectId(data['_id'])})
-            if db_response.deleted_count == 1:
-                response = {'ok': True, 'message': 'record deleted'}
-            else:
-                response = {'ok': True, 'message': 'no record found'}
-            return jsonify(response), 200
-        else:
-            return jsonify({'ok': False, 'message': 'Bad request parameters!'}), 400
-
 
 @app.route(urlApi + '/historical_consumption/<id>', methods=['PUT'])
 @jwt_required
@@ -67,6 +55,21 @@ def update_historical(id):
         return jsonify({'ok': True, 'message': 'record updated'}), 200
     else:
         return jsonify({'ok': False, 'message': 'Bad request parameters!'}), 400
+
+
+@app.route(urlApi + '/historical_consumption/<id>', methods=['DELETE'])
+@jwt_required
+def delete_historical(id):
+    if request.method == 'DELETE':
+        if id is not None:
+            db_response = mongo.db.historical_consumption.delete_one({'_id': ObjectId(id)})
+            if db_response.deleted_count == 1:
+                response = {'ok': True, 'message': 'record deleted'}
+            else:
+                response = {'ok': True, 'message': 'no record found'}
+            return jsonify(response), 200
+        else:
+            return jsonify({'ok': False, 'message': 'Bad request parameters!'}), 400
 
 
 @app.route(urlApi + '/historical_consumption/<code>', methods=['GET'])

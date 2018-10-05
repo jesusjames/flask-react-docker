@@ -10,10 +10,13 @@ import { HistoricalConsumption } from "../../../models/historical-consumption.mo
 })
 export class HistoricalmodalComponent implements OnInit {
   @Input() action: string = '';
+  @Input() historical: any = {};
   @Output() passData:EventEmitter<Object> = new EventEmitter();
 
   closeResult: string;
+  private modal: any;
   public createHistorical: HistoricalConsumption;
+  public historicalview: HistoricalConsumption;
 
   constructor(private modalService: NgbModal) {
     this.createHistorical = {
@@ -27,7 +30,8 @@ export class HistoricalmodalComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {windowClass: 'animated jello faster'}).result.then((result) => {
+    this.modal = this.modalService.open(content, {windowClass: 'animated fadeInDown faster'});
+    this.modal.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -45,11 +49,23 @@ export class HistoricalmodalComponent implements OnInit {
   }
 
   setValues(){
-    console.log(this.createHistorical);
-    this.passData.emit(this.createHistorical)
+    this.passData.emit(this.createHistorical);
+    this.modal.close();
+    this.createHistorical = {
+      paciente: "",
+      edad: 0,
+      sexo: "",
+      procedimiento: "",
+      producto: "",
+      cantidad: 0
+    };
   }
 
   ngOnInit(): void {
+    this.historicalview = this.historical;
+    if(this.action === 'edit') {
+      this.createHistorical = this.historical;
+    }
   }
 
 }

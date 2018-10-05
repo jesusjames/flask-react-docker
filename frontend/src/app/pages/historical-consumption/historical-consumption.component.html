@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="text-right">
-        <app-historicalmodal action="create" (passData)="Action($event)"></app-historicalmodal>
+        <app-historicalmodal action="create" (passData)="Action($event, 'create')"></app-historicalmodal>
       </div>
     </div>
   </div>
@@ -40,9 +40,9 @@
             <td>{{ historical.producto }}</td>
             <td>{{ historical.cantidad }}</td>
             <td>
-              <app-historicalmodal action="view" (passData)="Action($event)"></app-historicalmodal>
-              <app-historicalmodal action="edit" (passData)="Action($event)"></app-historicalmodal>
-              <button class="btn btn-danger btn-sm">
+              <app-historicalmodal action="view" [historical]="historical" (passData)="Action($event)"></app-historicalmodal>
+              <app-historicalmodal action="edit" [historical]="historical" (passData)="Action($event, 'edit')"></app-historicalmodal>
+              <button class="btn btn-danger btn-sm" (click)="DeleteHistoricalConsumption(historical)">
                 <i class="far fa-times-circle"></i>
               </button>
             </td>
